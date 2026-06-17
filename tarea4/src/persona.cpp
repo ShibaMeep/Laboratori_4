@@ -113,9 +113,9 @@ TPersona copiarTPersona(TPersona persona) {
 ///////////////////////////////////////////////////////////////////////////
 
 TEvento primerEventoDeTPersona(TPersona persona){
-    /*if (!esVaciaAgendaLS(persona->agenda)){
+    if (!esVaciaAgendaLS(persona->agenda)){
         return primerEventoAgendaLS(persona->agenda);
-    }*/
+    }
     return NULL;
 }
 
