@@ -1,21 +1,8 @@
 #include "../include/tablaPersonas.h"
-/**/
 struct rep_tablaPersonas {
-    /*Lista*tabla;
-    int max;*/
+    TPersonasLDE* tabla; // Tabla de dispersión abierta, cada posición de la tabla es una lista de personas
+    int n; // Tamaño de la tabla de dispersión
 };
-typedef rep_tablaPersonas* TTablaPersonas;
-
-nat funcionDeDispersion(const char nombre[100]){
-    /*nat res = 0;
-    int i = 0;
-    while(i< 100 && nombre[i] != '\0'){
-        res += int(nombre[i]);
-        i++;
-    }
-    return res;*/
-    return 0;
-}
 
 TTablaPersonas crearTTablaPersonas(int max){
     /*TTablaPersonas h = new TTablaPersonas;
