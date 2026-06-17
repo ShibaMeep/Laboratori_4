@@ -260,14 +260,54 @@ TPersona obtenerFinalDeTPersonasLDE(TPersonasLDE personas){
 ///////////////////////////////////////////////////////////////////////////
 
 void eliminarPersonaConNombreTPersonasLDE(TPersonasLDE &personas, const char nombre[100]){
-    
+    if(personas->inicio != NULL){
+        
+        Nodo* nodoActual = personas->inicio;
+        while(nodoActual != NULL){
+            if(strcmp(nombreTPersona(nodoActual->rpersona), nombre) == 0){
+                if(nodoActual->anterior != NULL){
+                    nodoActual->anterior->siguiente = nodoActual->siguiente;
+                }else{
+                    personas->inicio = nodoActual->siguiente;
+                }
+                if(nodoActual->siguiente != NULL){
+                    nodoActual->siguiente->anterior = nodoActual->anterior;
+                }else{
+                    personas->fing = nodoActual->anterior;
+                }
+                liberarTPersona(nodoActual->rpersona);
+                delete nodoActual;
+                return;
+            }
+            nodoActual = nodoActual->siguiente;
+        }
+    }
 }
 
-bool estaPersonaConNombreEnTPersonasLDE(TPersonasLDE personas, const char nombre[100]){
+bool estaPersonaConNombreEnTPersonasLDE(TPersonasLDE personas, const char nombre[100])
+{
+    if(personas->inicio != NULL){
+        Nodo* nodoActual = personas->inicio;
+        while(nodoActual != NULL){
+            if(strcmp(nombreTPersona(nodoActual->rpersona), nombre) == 0){
+                return true;
+            }
+            nodoActual = nodoActual->siguiente;
+        }
+    }
     return false;
 }
 
 TPersona obtenerPersonaConNombreTPersonasLDE(TPersonasLDE personas, const char nombre[100]){
+    if(personas->inicio != NULL){
+        Nodo* nodoActual = personas->inicio;
+        while(nodoActual != NULL){
+            if(strcmp(nombreTPersona(nodoActual->rpersona), nombre) == 0){
+                return nodoActual->rpersona;
+            }
+            nodoActual = nodoActual->siguiente;
+        }
+    }
     return NULL;
 }
 
