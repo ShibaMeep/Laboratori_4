@@ -3,13 +3,13 @@
 ///////////////////////////////////
 ////// PEGAR CÓDIGO TAREA 3 //////
 ///////////////////////////////////
-
 struct rep_fecha {
-nat dia, mes, anio;
+    nat dia, mes, anio;
+    
 };
 
 TFecha crearTFecha(nat dia, nat mes, nat anio) {
-     TFecha nuevaFecha = NULL;
+    TFecha nuevaFecha = NULL;
     nuevaFecha = new rep_fecha;
     nuevaFecha->dia = dia;
     nuevaFecha->mes = mes;
@@ -20,14 +20,16 @@ TFecha crearTFecha(nat dia, nat mes, nat anio) {
 }
 
 void liberarTFecha(TFecha &fecha) {
-      delete fecha;  
+    delete fecha;  
     fecha = NULL;
 }
 
 void imprimirTFecha(TFecha fecha) {
-     printf("%d/%d/%d", fecha->dia, fecha->mes, fecha->anio);
+    printf("%d/%d/%d", fecha->dia, fecha->mes, fecha->anio);
     printf("\n");
 }
+
+
 nat diasMes(nat mes, nat anio){
     nat dias = 0;
     switch (mes) {
@@ -48,7 +50,7 @@ nat diasMes(nat mes, nat anio){
 }
 
 void aumentarTFecha(TFecha &fecha, nat dias) {
-    nat diasRestantes = dias;
+nat diasRestantes = dias;
     while (diasRestantes > 0) {
         nat diasEnMes = diasMes(fecha->mes, fecha->anio);
         nat diasHastaFinMes = diasEnMes - fecha->dia;
@@ -65,7 +67,6 @@ void aumentarTFecha(TFecha &fecha, nat dias) {
             diasRestantes -= (diasHastaFinMes + 1);
         }
     }
-
 }
 
 int compararTFechas(TFecha fecha1, TFecha fecha2) {
@@ -93,13 +94,12 @@ int compararTFechas(TFecha fecha1, TFecha fecha2) {
 }
 
 TFecha copiarTFecha(TFecha fecha) {
-     TFecha copiaFecha = NULL;
+    TFecha copiaFecha = NULL;
     if (fecha != NULL) {
         copiaFecha = crearTFecha(fecha->dia, fecha->mes, fecha->anio);
     }
     return copiaFecha;
 }
-
 /////////////////////////////////
 ////// FIN CÓDIGO TAREA 3 //////
 /////////////////////////////////

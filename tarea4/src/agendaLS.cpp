@@ -3,18 +3,20 @@
 ///////////////////////////////////
 ////// PEGAR CÓDIGO TAREA 3 //////
 ///////////////////////////////////
-
-struct rep_agendaLS {
-     TEvento evento;
+struct rep_agendaLS
+{
+    TEvento evento;
     rep_agendaLS *sig;
 };
 
-TAgendaLS crearAgendaLS() {
+TAgendaLS crearAgendaLS()
+{
     TAgendaLS nuevaAgenda = NULL;
     return nuevaAgenda;
 }
 
-void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento) {
+void agregarEnAgendaLS(TAgendaLS& agenda, TEvento evento)
+{ 
     TAgendaLS nuevo = new rep_agendaLS;
     nuevo->evento = evento;
     nuevo->sig = NULL;
@@ -47,8 +49,9 @@ void agregarEnAgendaLS(TAgendaLS &agenda, TEvento evento) {
 }
 
 
-void imprimirAgendaLS(TAgendaLS agenda) {
-     if (agenda->evento != NULL)
+void imprimirAgendaLS(TAgendaLS agenda)
+{
+    if (agenda->evento != NULL)
     {
         TAgendaLS actual = agenda;
         while (actual != NULL)
@@ -59,8 +62,9 @@ void imprimirAgendaLS(TAgendaLS agenda) {
     }
 }
 
-void liberarAgendaLS(TAgendaLS &agenda) {
-     while (agenda != NULL)
+void liberarAgendaLS(TAgendaLS& agenda)
+{
+    while (agenda != NULL)
     {
         TAgendaLS nodoSiguiente = agenda->sig;
         liberarTEvento(agenda->evento);
@@ -70,13 +74,15 @@ void liberarAgendaLS(TAgendaLS &agenda) {
     agenda = NULL;
 }
 
-bool esVaciaAgendaLS(TAgendaLS agenda){
-   if (agenda == NULL)
+bool esVaciaAgendaLS(TAgendaLS agenda)
+{
+    if (agenda == NULL)
         return true;
     return false;
 }
 
-TAgendaLS copiarAgendaLS(TAgendaLS agenda){
+TAgendaLS copiarAgendaLS(TAgendaLS agenda)
+{
     TAgendaLS nuevaAgenda = crearAgendaLS();
     while (agenda != NULL)
     {
@@ -87,9 +93,9 @@ TAgendaLS copiarAgendaLS(TAgendaLS agenda){
     return nuevaAgenda;
 }
 
-
-bool estaEnAgendaLS(TAgendaLS agenda, int id) {
-   while (agenda != NULL)
+bool estaEnAgendaLS(TAgendaLS agenda, int id)
+{
+    while (agenda != NULL)
     {
         if (idTEvento(agenda->evento) == id)
         {
@@ -101,7 +107,8 @@ bool estaEnAgendaLS(TAgendaLS agenda, int id) {
     return false;
 }
 
-TEvento obtenerDeAgendaLS(TAgendaLS agenda, int id) {
+TEvento obtenerDeAgendaLS(TAgendaLS agenda, int id)
+{
     while (agenda != NULL)
     {
         if (idTEvento(agenda->evento) == id) //el problema era que esta en agenda itera 2 veces, por lo que se compara directamente.
@@ -113,8 +120,9 @@ TEvento obtenerDeAgendaLS(TAgendaLS agenda, int id) {
     return NULL;
 }
 
-void posponerEnAgendaLS(TAgendaLS &agenda, int id, nat n) {
-      TAgendaLS nodoActual = agenda;
+void posponerEnAgendaLS(TAgendaLS& agenda, int id, nat n)
+{
+    TAgendaLS nodoActual = agenda;
     TAgendaLS nodoAnterior = NULL;
 
     while (nodoActual != NULL)
@@ -145,8 +153,10 @@ void posponerEnAgendaLS(TAgendaLS &agenda, int id, nat n) {
     }
 }
 
-void imprimirEventosFechaLS(TAgendaLS agenda, TFecha fecha) {
-     while (agenda != NULL)
+
+void imprimirEventosFechaLS(TAgendaLS agenda, TFecha fecha)
+{
+    while (agenda != NULL)
     {
         if (compararTFechas(fecha, fechaTEvento(agenda->evento)) == 0)
         {
@@ -156,8 +166,9 @@ void imprimirEventosFechaLS(TAgendaLS agenda, TFecha fecha) {
     }
 }
 
-bool hayEventosFechaLS(TAgendaLS agenda, TFecha fecha) {
-   while (agenda != NULL)
+bool hayEventosFechaLS(TAgendaLS agenda, TFecha fecha)
+{
+    while (agenda != NULL)
     {
         if (compararTFechas(fecha, fechaTEvento(agenda->evento)) == 0)
         {
@@ -168,8 +179,9 @@ bool hayEventosFechaLS(TAgendaLS agenda, TFecha fecha) {
     return false;
 }
 
-void removerDeAgendaLS(TAgendaLS &agenda, int id) {
-     TAgendaLS nodoActual = agenda;
+void removerDeAgendaLS(TAgendaLS& agenda, int id)
+{
+    TAgendaLS nodoActual = agenda;
     TAgendaLS nodoAnterior = NULL;
 
     while (nodoActual != NULL)
@@ -192,7 +204,6 @@ void removerDeAgendaLS(TAgendaLS &agenda, int id) {
         nodoActual = nodoActual->sig;
     }
 }
-
 ///////////////////////////////////
 ////// FIN CÓDIGO TAREA 3 //////
 ///////////////////////////////////
@@ -202,9 +213,10 @@ void removerDeAgendaLS(TAgendaLS &agenda, int id) {
 ///////////////////////////////////////////////////////////////////////////
 
 TEvento primerEventoAgendaLS(TAgendaLS agenda){
-    if (agenda!=NULL){ 
+   /* if (agenda!=NULL){ 
     return obtenerDeAgendaLS(agenda, 1);
- }
+ }*/
+ return NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////

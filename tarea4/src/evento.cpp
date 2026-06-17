@@ -3,15 +3,14 @@
 ///////////////////////////////////
 ////// PEGAR CÓDIGO TAREA 3 //////
 ///////////////////////////////////
-
 struct rep_evento {
-  int id;
+    int id;
     char descripcion[MAX_DESCRIPCION];
     TFecha fecha;
 };
 
 TEvento crearTEvento(int id, const char descripcion[MAX_DESCRIPCION], TFecha fecha) {
-     TEvento nuevoEvento = NULL;
+    TEvento nuevoEvento = NULL;
     nuevoEvento = new rep_evento;
     nuevoEvento->id = id;
     strncpy(nuevoEvento->descripcion, descripcion, MAX_DESCRIPCION);
@@ -20,20 +19,20 @@ TEvento crearTEvento(int id, const char descripcion[MAX_DESCRIPCION], TFecha fec
 }
 
 void imprimirTEvento(TEvento evento) {
-     printf("Evento %d: ", evento->id);
+    printf("Evento %d: ", evento->id);
     printf("%s\n", evento->descripcion);
     printf("Fecha: ");
     imprimirTFecha(fechaTEvento(evento));
 }
 
 void liberarTEvento(TEvento &evento) {
-      liberarTFecha(evento->fecha);
+    liberarTFecha(evento->fecha);
     delete evento;
     evento = NULL;
 }
 
 int idTEvento(TEvento evento) {
-   int res = 0;
+    int res = 0;
     res = evento->id;
     return res;
 }
@@ -45,11 +44,11 @@ TFecha fechaTEvento(TEvento evento) {
 }
 
 void posponerTEvento(TEvento &evento, int dias) {
-  aumentarTFecha(evento->fecha, dias);
+    aumentarTFecha(evento->fecha, dias);
 }
 
 TEvento copiarTEvento(TEvento evento) {
-   TEvento copiaEvento = NULL;
+    TEvento copiaEvento = NULL;
     if (evento != NULL) {
         copiaEvento = crearTEvento(evento->id, evento->descripcion, copiarTFecha(evento->fecha));
     }

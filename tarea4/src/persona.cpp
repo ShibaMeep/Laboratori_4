@@ -3,7 +3,6 @@
 ///////////////////////////////////
 ////// PEGAR CÓDIGO TAREA 3 //////
 ///////////////////////////////////
-
 struct rep_persona {
 int id;
 nat edad;
@@ -11,8 +10,9 @@ char nombre[MAX_NOMBRE];
 TAgendaLS agenda;
 };
 
+
 TPersona crearTPersona(nat id, nat edad, const char nombre[MAX_NOMBRE], TAgendaLS agenda) {
-     TPersona nuevo = new rep_persona;
+    TPersona nuevo = new rep_persona;
 
     nuevo->id = id;
     nuevo->edad = edad;
@@ -26,8 +26,8 @@ TPersona crearTPersona(nat id, nat edad, const char nombre[MAX_NOMBRE], TAgendaL
     return nuevo;
 }
 
-void liberarTPersona(TPersona &persona) {
-if(!esVaciaAgendaLS(persona->agenda)){
+void liberarTPersona(TPersona& persona) {
+    if(!esVaciaAgendaLS(persona->agenda)){
         liberarAgendaLS(persona->agenda);
     }
 
@@ -37,7 +37,7 @@ if(!esVaciaAgendaLS(persona->agenda)){
 
 //Imprime a la persona utilizando printf e imprimeAgendaLS
 void imprimirTPersona(TPersona persona) {
- printf("Persona %d: %s, %d años\n",
+    printf("Persona %d: %s, %d años\n",
         persona->id, persona->nombre, persona->edad );
 
     if(persona->agenda != NULL){
@@ -67,37 +67,37 @@ char* nombreTPersona(TPersona persona) {
 }
 
 TAgendaLS agendaTPersona(TPersona persona) {
-     if(persona != NULL){
+    if(persona != NULL){
         return persona->agenda;
     }
     return NULL;
 }
 
 void agregarEventoATPersona(TPersona &persona, TEvento evento) {
- agregarEnAgendaLS(persona ->agenda, evento);
+    agregarEnAgendaLS(persona ->agenda, evento);
 }
 
 void posponerEventoEnTPersona(TPersona &persona, int id, nat n) {
- posponerEnAgendaLS(persona->agenda, id, n);
+    posponerEnAgendaLS(persona->agenda, id, n);
 }
 
 void removerEventoDeTPersona(TPersona &persona, int id) {
-removerDeAgendaLS(persona->agenda,id);
+    removerDeAgendaLS(persona->agenda,id);
 }
 
 bool estaEnAgendaDeTPersona(TPersona persona, int id) {
-     if(estaEnAgendaLS(persona->agenda, id)){
+    if(estaEnAgendaLS(persona->agenda, id)){
         return true;
     }
     return false;
 }
 
 TEvento obtenerDeAgendaDeTPersona(TPersona persona, int id) {
-   return obtenerDeAgendaLS(persona->agenda,id);
+    return obtenerDeAgendaLS(persona->agenda,id);
 }
 
 TPersona copiarTPersona(TPersona persona) {
-     TPersona personaCopia = NULL;
+    TPersona personaCopia = NULL;
     if(persona != NULL){
         personaCopia = crearTPersona(persona->id, persona->edad, persona->nombre, copiarAgendaLS(persona->agenda));
     }
@@ -113,9 +113,10 @@ TPersona copiarTPersona(TPersona persona) {
 ///////////////////////////////////////////////////////////////////////////
 
 TEvento primerEventoDeTPersona(TPersona persona){
-    if (!esVaciaAgendaLS(persona->agenda)){
+    /*if (!esVaciaAgendaLS(persona->agenda)){
         return primerEventoAgendaLS(persona->agenda);
-    }
+    }*/
+    return NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////

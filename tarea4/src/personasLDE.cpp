@@ -3,26 +3,29 @@
 ///////////////////////////////////
 ////// PEGAR CÓDIGO TAREA 3 //////
 ///////////////////////////////////
-
+//El nodo, contiene la variable que se trabaja, en este caso TPersona, además, contiene un puntero al siguiente nodo y al anterior nodo
 struct Nodo {
- TPersona rpersona;
+    TPersona rpersona;
     Nodo *siguiente;
     Nodo *anterior;
 };
+//El cabezal, contiene la variable que se trabaja, en este caso TPersonas LDE, el cual es un puntero a rep_personasLDE, además, contiene inicio y fin
 struct rep_personasLDE {
     Nodo *inicio;
     Nodo *fing;
 };
+
+
+
 TPersonasLDE crearTPersonasLDE(){
-     TPersonasLDE personasLDE = new rep_personasLDE;
+    TPersonasLDE personasLDE = new rep_personasLDE;
     personasLDE->inicio = NULL;
     personasLDE->fing = NULL;
     return personasLDE;
 }
-    
 
 void insertarTPersonasLDE(TPersonasLDE &personas, TPersona persona, nat pos){
-Nodo* nuevoNodo = new Nodo;
+    Nodo* nuevoNodo = new Nodo;
     nuevoNodo->rpersona = persona;
     nuevoNodo->siguiente = NULL;
     nuevoNodo->anterior = NULL;
@@ -72,7 +75,7 @@ Nodo* nuevoNodo = new Nodo;
 }
 
 void liberarTPersonasLDE(TPersonasLDE &personasLDE){
- if (personasLDE == NULL) {
+    if (personasLDE == NULL) {
         return;
     }
     Nodo* nodoActual = personasLDE->inicio;
@@ -105,7 +108,7 @@ void imprimirTPersonasLDE(TPersonasLDE personas){
 }
 
 nat cantidadTPersonasLDE(TPersonasLDE personas){
-     nat contador;
+    nat contador;
     contador = 1;
     Nodo* nodoActual = personas->inicio;
     
@@ -123,7 +126,7 @@ nat cantidadTPersonasLDE(TPersonasLDE personas){
 }
 
 void eliminarInicioTPersonasLDE(TPersonasLDE &personas){
- if(personas ->inicio == NULL){
+    if(personas ->inicio == NULL){
         return;
     }
     Nodo * nodoBorrar = personas->inicio;
@@ -135,10 +138,12 @@ void eliminarInicioTPersonasLDE(TPersonasLDE &personas){
     }
     liberarTPersona(nodoBorrar->rpersona);
     delete nodoBorrar;
+    
 }
 
+
 void eliminarFinalTPersonasLDE(TPersonasLDE &personas){
-if(personas->fing == NULL){
+    if(personas->fing == NULL){
         return;
     }
     Nodo* nodoBorrar = personas->fing;
@@ -155,7 +160,7 @@ if(personas->fing == NULL){
 }
 
 bool estaEnTPersonasLDE(TPersonasLDE personas, nat id){
-    Nodo* nodoActual = personas->inicio;
+Nodo* nodoActual = personas->inicio;
 
 while (nodoActual != NULL)
 {
@@ -168,7 +173,7 @@ while (nodoActual != NULL)
 }
 
 TPersona obtenerDeTPersonasLDE(TPersonasLDE personas, nat id){
-   Nodo* nodoActual = personas->inicio;
+    Nodo* nodoActual = personas->inicio;
         while (nodoActual != NULL )
         {
             if (idTPersona(nodoActual->rpersona) == id){
@@ -180,7 +185,8 @@ TPersona obtenerDeTPersonasLDE(TPersonasLDE personas, nat id){
 }
 
 TPersonasLDE concatenarTPersonasLDE(TPersonasLDE personas1, TPersonasLDE personas2){
-   TPersonasLDE nuevaLista = crearTPersonasLDE();
+
+    TPersonasLDE nuevaLista = crearTPersonasLDE();
     if (personas1->inicio == NULL && personas2->inicio == NULL){
         nuevaLista->inicio = NULL;
         nuevaLista->fing = NULL;
@@ -224,7 +230,7 @@ void insertarInicioDeTPersonasLDE(TPersonasLDE &personas, TPersona persona){
 }
 
 void insertarFinalDeTPersonasLDE(TPersonasLDE &personas, TPersona persona){    
-Nodo* nuevoNodo = new Nodo;
+    Nodo* nuevoNodo = new Nodo;
     nuevoNodo->rpersona = persona;
     nuevoNodo->siguiente = NULL;
 
@@ -243,9 +249,8 @@ TPersona obtenerInicioDeTPersonasLDE(TPersonasLDE personas){
 }
 
 TPersona obtenerFinalDeTPersonasLDE(TPersonasLDE personas){
-   return personas->fing->rpersona;
+    return personas->fing->rpersona;
 }
-
 ///////////////////////////////////
 ////// FIN CÓDIGO TAREA 3 //////
 ///////////////////////////////////
