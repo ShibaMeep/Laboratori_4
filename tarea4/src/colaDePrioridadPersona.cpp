@@ -29,7 +29,7 @@ void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
       cp->cola[posPadre] = aux;
 
       cp->posiciones[idTPersona(cp->cola[pos])] = pos;
-      cp->posiciones[idTPersona(cp->cola[posPadre])] = pos;
+      cp->posiciones[idTPersona(cp->cola[posPadre])] = posPadre;
 
       pos = posPadre;
 
@@ -109,9 +109,6 @@ bool estaEnCP(nat id, TColaDePrioridadPersona cp) {
 }
 
 TFecha prioridad(nat id, TColaDePrioridadPersona cp){
-  if (!estaEnCP(id,cp)) {
-   return;
-  }
-  else return fecha_prioritaria(cp->cola[cp->posiciones[id]]); 
-
+  nat pos = cp->posiciones[id];
+  return fecha_prioritaria(cp->cola[pos]);
 }
