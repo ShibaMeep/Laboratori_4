@@ -15,17 +15,9 @@ void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
 }
 
 
-TFecha fecha_prioritaria(TColaDePrioridadPersona cp){
-  TFecha fecha = NULL;
-    nat j = 2;
-    nat k = 1;
-    for(nat i = 1; i <= cp->cantidad; i++){
-      if(!esVaciaAgendaLS()){
-
-      }
-    }
-
-  return NULL;
+TFecha fecha_prioritaria(TPersona persona){
+  TEvento evento = primerEventoDeTPersona(persona);
+  return fechaTEvento(evento);
 }
 
 
