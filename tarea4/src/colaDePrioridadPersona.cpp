@@ -1,7 +1,7 @@
 #include "../include/colaDePrioridadPersona.h"
 #include "../include/utils.h"
 #include "../include/evento.h"
-
+#include "../include/fecha.h"
 struct rep_colaDePrioridadPersona {
 TPersona* cola;
 nat* posiciones;
@@ -11,7 +11,23 @@ nat cantidad;
 
 
 void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
+  while (pos > 1){
+    nat posPadre = pos / 2;
 
+    TFecha fechaHijo = fecha_prioritaria(cp->cola[pos]);
+    TFecha fechaPadre = fecha_prioritaria(cp->cola[posPadre]);
+
+    if (compararTFechas(fechaHijo, fechaPadre)< 0){
+      TPersona aux = cp->cola[pos];
+      cp->cola[pos] = cp->cola[posPadre];
+      cp->cola[posPadre] = aux;
+
+      pos = posPadre;
+
+    }else {
+      break;
+    }
+  }
 }
 
 
