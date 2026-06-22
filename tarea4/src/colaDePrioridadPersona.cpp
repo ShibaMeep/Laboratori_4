@@ -10,8 +10,14 @@ nat cantidad;
 };
 
 
+TFecha fecha_prioritaria(TPersona persona){
+  TEvento evento = primerEventoDeTPersona(persona);
+  return fechaTEvento(evento);
+}
+
 void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
-  while (pos > 1){
+  bool para = false;
+  while (pos > 1 && para == false) {
     nat posPadre = pos / 2;
 
     TFecha fechaHijo = fecha_prioritaria(cp->cola[pos]);
@@ -22,26 +28,22 @@ void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
       cp->cola[pos] = cp->cola[posPadre];
       cp->cola[posPadre] = aux;
 
+      cp->posiciones[idTPersona(cp->cola[pos])] = pos;
+      cp->posiciones[idTPersona(cp->cola[posPadre])] = pos;
+
       pos = posPadre;
 
     }else {
-      break;
+      para = true;
     }
   }
 }
 
-
-TFecha fecha_prioritaria(TPersona persona){
-  TEvento evento = primerEventoDeTPersona(persona);
-  return fechaTEvento(evento);
-}
-
-
 TColaDePrioridadPersona crearCP(nat N) {
   //reservamos memoria para la estructura 
   TColaDePrioridadPersona cola = new rep_colaDePrioridadPersona; //Theta 1
-  cola->tope = N; //Theta 1
-  cola->cantidad = 0; //Theta 1
+  cola->cantidad = N; //Theta 1
+  cola->tope = 0; //Theta 1
 
   //reservamos memoria para la cola 
   cola->cola = new TPersona[N +1 ]; //Theta N
@@ -62,15 +64,33 @@ void invertirPrioridad(TColaDePrioridadPersona &cp) {
 }
 
 void liberarCP(TColaDePrioridadPersona &cp) {
-  
+  if(cp != NULL){
+
+    for (nat i = 1; i <= cp->tope; i++){
+      liberarTPersona(cp->cola[i]);
+    }
+    delete[] cp->cola;
+    delete[] cp->posiciones;
+    delete cp;
+    cp = NULL;
+  }
 }
 
 void insertarEnCP(TPersona persona, TColaDePrioridadPersona &cp) {
- 
+  cp->tope++;
+
+  nat posNueva = cp->tope;
+  cp->cola[cp->tope] = persona;
+
+  nat id = idTPersona(persona);
+  cp->posiciones[id] = posNueva;
+
+
+  filtrado_ascendente(posNueva, cp);
 }
 
 bool estaVaciaCP(TColaDePrioridadPersona cp) {
-  return cp->cantidad == 0;
+  return cp->tope == 0;
 }
 
 TPersona prioritaria(TColaDePrioridadPersona cp) {
@@ -83,6 +103,8 @@ void eliminarPrioritaria(TColaDePrioridadPersona &cp) {
 }
 
 bool estaEnCP(nat id, TColaDePrioridadPersona cp) {
+  if (id > cp->cantidad || id < 1)
+    return false;
   return cp->posiciones[id] != 0;
 }
 
