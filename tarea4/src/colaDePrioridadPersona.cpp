@@ -28,6 +28,7 @@ TFecha fecha_prioritaria(TColaDePrioridadPersona cp){
   return NULL;
 }
 
+
 TColaDePrioridadPersona crearCP(nat N) {
   //reservamos memoria para la estructura 
   TColaDePrioridadPersona cola = new rep_colaDePrioridadPersona; //Theta 1
@@ -61,19 +62,20 @@ void insertarEnCP(TPersona persona, TColaDePrioridadPersona &cp) {
 }
 
 bool estaVaciaCP(TColaDePrioridadPersona cp) {
-  return false;
+  return cp->cantidad == 0;
 }
 
 TPersona prioritaria(TColaDePrioridadPersona cp) {
-  return NULL;
+  return cp->cola[1];
 } 
 
 void eliminarPrioritaria(TColaDePrioridadPersona &cp) {
-  
+  if (estaVaciaCP(cp))
+   return;
 }
 
 bool estaEnCP(nat id, TColaDePrioridadPersona cp) {
-  return false;
+  return cp->posiciones[id] != 0;
 }
 
 TFecha prioridad(nat id, TColaDePrioridadPersona cp){
