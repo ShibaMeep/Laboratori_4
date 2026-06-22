@@ -7,6 +7,7 @@ TPersona* cola;
 nat* posiciones;
 nat tope;
 nat cantidad;
+bool invertida;
 };
 
 
@@ -23,7 +24,10 @@ void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
     TFecha fechaHijo = fecha_prioritaria(cp->cola[pos]);
     TFecha fechaPadre = fecha_prioritaria(cp->cola[posPadre]);
 
-    if (compararTFechas(fechaHijo, fechaPadre)< 0){
+    int cmp = compararTFechas(fechaHijo, fechaPadre);
+    bool debe_subir = (cp->invertida) ? (cmp > 0) : (cmp < 0);
+
+    if (debe_subir){
       TPersona aux = cp->cola[pos];
       cp->cola[pos] = cp->cola[posPadre];
       cp->cola[posPadre] = aux;
@@ -45,29 +49,33 @@ void filtrado_descendente(nat pos, TColaDePrioridadPersona &cp) {
   while (2* pos <= cp->tope && !para){
     nat hIzq = 2 * pos;
     nat hDer = hIzq + 1;
-    nat hMin = hIzq;
+    nat hSelect = hIzq;
 
     if (hDer <= cp->tope){
       TFecha fechaHDer = fecha_prioritaria(cp->cola[hDer]);
       TFecha fechaHIzq = fecha_prioritaria(cp->cola[hIzq]);
+      int cmp = compararTFechas(fechaHDer, fechaHIzq);
 
-      if (compararTFechas(fechaHDer, fechaHIzq) < 0){
-        hMin = hDer;
+      bool seleccionar_der = (cp->invertida) ? (cmp > 0) : (cmp < 0);
+      if (seleccionar_der){
+        hSelect = hDer;
       }
     }
 
-    TFecha fechaHMin = fecha_prioritaria(cp->cola[hMin]);
+    TFecha fechaHSelect = fecha_prioritaria(cp->cola[hSelect]);
     TFecha fechaPadre = fecha_prioritaria(cp->cola[pos]);
+    int cmp = compararTFechas(fechaHSelect, fechaPadre);
 
-    if (compararTFechas(fechaHMin, fechaPadre) < 0){
+    bool debe_bajar = (cp->invertida) ? (cmp > 0) : (cmp < 0);
+    if (debe_bajar){
       TPersona aux = cp->cola[pos];
-      cp->cola[pos] = cp->cola[hMin];
-      cp->cola[hMin] = aux;
+      cp->cola[pos] = cp->cola[hSelect];
+      cp->cola[hSelect] = aux;
 
       cp->posiciones[idTPersona(cp->cola[pos])] = pos;
-      cp->posiciones[idTPersona(cp->cola[hMin])] = hMin;
+      cp->posiciones[idTPersona(cp->cola[hSelect])] = hSelect;
 
-      pos = hMin;
+      pos = hSelect;
     } else {
       para = true;
     }
@@ -79,6 +87,7 @@ TColaDePrioridadPersona crearCP(nat N) {
   TColaDePrioridadPersona cola = new rep_colaDePrioridadPersona; //Theta 1
   cola->cantidad = N; //Theta 1
   cola->tope = 0; //Theta 1
+  cola->invertida = false; //Theta 1
 
   //reservamos memoria para la cola 
   cola->cola = new TPersona[N +1 ]; //Theta N
@@ -93,11 +102,18 @@ TColaDePrioridadPersona crearCP(nat N) {
   }
   return cola;
 } 
-
 void invertirPrioridad(TColaDePrioridadPersona &cp) {
+  cp->invertida = !cp->invertida;
+  
+  if (cp->tope <= 1){
+    return;
+  }
 
+  // Hacer heapify-down para reorganizar el heap con el nuevo criterio
+  for (int i = cp->tope / 2; i >= 1; i--) {
+    filtrado_descendente(i, cp);
+  }
 }
-
 void liberarCP(TColaDePrioridadPersona &cp) {
   if(cp != NULL){
 
