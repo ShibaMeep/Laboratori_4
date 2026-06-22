@@ -39,13 +39,6 @@ void filtrado_ascendente(nat pos, TColaDePrioridadPersona &cp){
   }
 }
 
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 7b812f690167f38d4985233490f3d5f37562c016
 TColaDePrioridadPersona crearCP(nat N) {
   //reservamos memoria para la estructura 
   TColaDePrioridadPersona cola = new rep_colaDePrioridadPersona; //Theta 1
