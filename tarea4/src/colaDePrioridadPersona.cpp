@@ -87,5 +87,8 @@ bool estaEnCP(nat id, TColaDePrioridadPersona cp) {
 }
 
 TFecha prioridad(nat id, TColaDePrioridadPersona cp){
-  return NULL;
+ if (!estaEnCP(id,cp)) {
+   return;
+  }
+  else return fecha_prioritaria(cp->cola[cp->posiciones[id]]); 
 }
